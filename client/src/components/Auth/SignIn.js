@@ -13,10 +13,15 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import './SignIn.css';
+import { signIn } from '../../redux/ActionCreators/Auth';
+import { useDispatch } from 'react-redux';
 
 const theme = createTheme();
 
 export default function SignIn() {
+
+  const dispatch = useDispatch();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -25,6 +30,9 @@ export default function SignIn() {
       email: data.get('email'),
       password: data.get('password'),
     });
+
+    dispatch(signIn(data.get('email'), data.get('password')));
+
   };
 
   return (
