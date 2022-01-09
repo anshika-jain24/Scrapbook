@@ -1,6 +1,6 @@
 import * as api from '../api/index';
 
-export const signIn = (email, password) => (dispatch) => {
+export const signIn = (email, password, navigate) => (dispatch) => {
     // dispatch(ChangeLoadingStatus(true));
   
     setTimeout(() => {
@@ -13,6 +13,7 @@ export const signIn = (email, password) => (dispatch) => {
   
             // dispatch(ChangeLoadingStatus(false));
             dispatch({type: "LOGIN" , payload : response.data});
+            navigate('/');
           }
         })
         .catch(function (error) {
