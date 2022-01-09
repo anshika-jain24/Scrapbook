@@ -1,10 +1,11 @@
 import React from "react";
+import SignIn from "./components/Auth/SignIn";
+import SignUp from "./components/Auth/SignUp";
 
 function App() {
   return (
     <div>
-      <h1>DIGITAL SCRAPBOOK</h1>
-      
+     <SignUp />      
     </div>
   );
 }
