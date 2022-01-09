@@ -10,11 +10,16 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { signUp } from '../../redux/ActionCreators/Auth';
+import { useDispatch } from 'react-redux';
 
 
 const theme = createTheme();
 
 export default function SignUp() {
+
+  const dispatch = useDispatch();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -23,7 +28,13 @@ export default function SignUp() {
       email: data.get('email'),
       password: data.get('password'),
     });
+
+    const name = data.get('firstName') + " " + data.get('lastName');
+    // console.log(name);
+    dispatch(signUp(data.get('email'), data.get('password'), name));
+
   };
+
 
   return (
     <ThemeProvider theme={theme}>
