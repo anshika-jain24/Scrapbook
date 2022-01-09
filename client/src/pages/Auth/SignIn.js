@@ -15,12 +15,14 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import './SignIn.css';
 import { signIn } from '../../redux/ActionCreators/Auth';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 
 const theme = createTheme();
 
 export default function SignIn() {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -31,7 +33,7 @@ export default function SignIn() {
       password: data.get('password'),
     });
 
-    dispatch(signIn(data.get('email'), data.get('password')));
+    dispatch(signIn(data.get('email'), data.get('password'), navigate));
 
   };
 
