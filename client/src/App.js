@@ -1,17 +1,19 @@
 import React from "react";
-import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route, Outlet, Navigate } from 'react-router-dom';
 import SignIn from "./pages/Auth/SignIn";
 import SignUp from "./pages/Auth/SignUp";
 import Homepage from "./pages/Homepage/Homepage";
 import Dashboard from "./pages/Dashboard/Dashboard";
-import {ConfigureStore} from '../src/redux/configureStore';
+import LinearProgress from '@mui/material/LinearProgress';
+import { useSelector } from "react-redux";
 
-const store = ConfigureStore();
+
 
 function App() {
+  const loadingStatus= useSelector( (state) => state.loading.isLoading);
   return (
-    <Provider store={store}>
+    <>
+      {loadingStatus && <LinearProgress/>}
       <BrowserRouter>
         <Routes>
         <Route path="/" element={<PrivateOutlet1 />}>
@@ -26,7 +28,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </Provider>
+    </>
   );
 }
 
