@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@700&display=swap');
+
+.homepageBanner{
+    height: 100vh;
+    width: 100vw;
+    font-family: 'Roboto Mono', monospace;
+    background-color: #c5e1ec;
+    font-size: 2rem;
+    color: #004668;
+    background-image: url('../images/Banner.jpg');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}

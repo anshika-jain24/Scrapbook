@@ -1,7 +1,7 @@
 import * as api from '../api/index';
 
 export const signIn = (email, password, navigate) => (dispatch) => {
-    // dispatch(ChangeLoadingStatus(true));
+    dispatch(ChangeLoadingStatus(true));
   
     setTimeout(() => {
        api.signIn(email, password)
@@ -11,7 +11,7 @@ export const signIn = (email, password, navigate) => (dispatch) => {
             //   console.log("inn");
             localStorage.setItem("profile", JSON.stringify(response.data.token));
   
-            // dispatch(ChangeLoadingStatus(false));
+            dispatch(ChangeLoadingStatus(false));
             dispatch({type: "LOGIN" , payload : response.data});
             navigate('/');
           }
@@ -21,14 +21,14 @@ export const signIn = (email, password, navigate) => (dispatch) => {
           console.log(error.response);
           alert(error.response.data.msg);
   
-        //   dispatch(ChangeLoadingStatus(false));
+          dispatch(ChangeLoadingStatus(false));
 
         });
     }, 2000);
   };
 
   export const signUp = (email, password, name) => (dispatch) => {
-    // dispatch(ChangeLoadingStatus(true));
+    dispatch(ChangeLoadingStatus(true));
   
     setTimeout(() => {
        api.signUp(email, password, name)
@@ -38,7 +38,7 @@ export const signIn = (email, password, navigate) => (dispatch) => {
             //   console.log("inn");
             localStorage.setItem("profile", JSON.stringify(response.data.token));
   
-            // dispatch(ChangeLoadingStatus(false));
+            dispatch(ChangeLoadingStatus(false));
             dispatch({type: "LOGIN" , payload : response.data});
           }
         })
@@ -47,8 +47,13 @@ export const signIn = (email, password, navigate) => (dispatch) => {
           console.log(error.response);
           alert(error.response.data.msg);
   
-        //   dispatch(ChangeLoadingStatus(false));
+          dispatch(ChangeLoadingStatus(false));
 
         });
     }, 2000);
   };
+
+  export const ChangeLoadingStatus = (dat) => ({
+    type: "CHANGE_LOADING_STATUS",
+    payload: dat,
+  });
