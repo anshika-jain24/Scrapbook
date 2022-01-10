@@ -1,6 +1,6 @@
 import React from 'react'
 import './homepage.css'
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { Button } from '@mui/material';
 
 function homepage() {
@@ -13,7 +13,18 @@ function homepage() {
                 }}>
                     <Button variant='contained'>Sign In</Button>
                 </Box>
+                <Box className='bannerText'>
+                    <Typography className='bannerHeading'>
+                        Travel <br/>Tales
+                    </Typography>
+
+                    <Typography className='bannerSubText'>
+                        Narrate your Own Tale
+                    </Typography>
+                </Box>
             </Box>
+
+            
         
         </>
     )
