@@ -1,10 +1,13 @@
-import React from 'react'
+import React from 'react';
+import ButtonAppBar from '../../components/Navbar';
+import Map from '../../components/Map/Map';
 
 function Dashboard() {
     return (
-        <div>
-            DASHBOARD
-        </div>
+        <>
+        <ButtonAppBar />
+        <Map />
+        </>
     )
 }
 

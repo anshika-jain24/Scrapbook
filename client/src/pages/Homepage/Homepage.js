@@ -1,7 +1,7 @@
 import React from 'react';
 import './homepage.css'
 import { Box, Typography } from '@mui/material';
-import Map from '../../components/Map';
+
 
 function Homepage() {
 
@@ -31,7 +31,7 @@ function Homepage() {
                 <Typography variant="h3">
                     Explore
                 </Typography>
-                <Map/>
+                
             </Box>
 
             
