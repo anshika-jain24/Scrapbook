@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl'; 
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import './Map.css';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiYW5zaGlrYWphaW4yNCIsImEiOiJja3kwMTgwdDgzYWQwMnBwNGljMTFsY2V0In0.CPC6J0E9RW2NfvJHbHZ7Eg';
 
@@ -34,6 +35,27 @@ function Map() {
           setLat(map.getCenter().lat.toFixed(4));
           setZoom(map.getZoom().toFixed(2));
         });
+
+        map.on('click', (event) => {
+          // If the user clicked on one of your markers, get its information.
+          const features = map.queryRenderedFeatures(event.point, {
+            layers: ['ToVisit'] // replace with your layer name
+          });
+          if (!features.length) {
+            return;
+          }
+          const feature = features[0];
+
+          const popup = new mapboxgl.Popup({ offset: [0, -15] })
+          .setLngLat(feature.geometry.coordinates)
+          .setHTML(
+            `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
+          )
+          .addTo(map);
+        
+          // Code from the next step will go here.
+        });
+
     
         // Clean up on unmount
         return () => map.remove();
