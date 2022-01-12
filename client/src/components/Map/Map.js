@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl'; 
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import './Map.css';
+import {Button} from '@mui/material'
 
 mapboxgl.accessToken = 'pk.eyJ1Ijoic2Fpa2VzaGFyaSIsImEiOiJja2swdDYyanYwM3IwMm5xZjZlYm1kZmlsIn0.1ha1QjW98gYknER_3JqN6w';
 
@@ -56,6 +57,23 @@ function Map() {
         
           // Code from the next step will go here.
         });
+
+        geocoder.on('result', (e) => {
+          console.log(e.result);
+          const popups = document.getElementsByClassName("mapboxgl-popup");
+
+            if (popups.length) {
+
+                popups[0].remove();
+
+            }
+          const popup = new mapboxgl.Popup({ offset: [0, -15] })
+          .setLngLat(e.result.geometry.coordinates)
+          .setHTML(
+            `<h3>${e.result.place_name}</h3><button class="geocoder-result-btn">Add to Visited</button>`
+          )
+          .addTo(map);
+        })
 
     
         // Clean up on unmount

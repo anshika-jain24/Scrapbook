@@ -11,9 +11,6 @@ const ReviewSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'place'
     },
-    images:{
-        type:String
-    },
     review_text:{
         type: String,
         required:true
