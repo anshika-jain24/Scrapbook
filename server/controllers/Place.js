@@ -13,5 +13,13 @@ export const getPlaces = async (req,res) => {
 export const addPlaces = async ( req,res) => {
     const place = req.body;
 
-    const newPlace = new Places({ ...place, })
+    const newPlace = new Places(place);
+    console.log(place);
+    try {
+      await newPlace.save();  
+
+      res.status(200).json(newPlace);
+    } catch (error) {
+        res.status(409).json({ message: error.message});
+    }
 }

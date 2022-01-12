@@ -4,6 +4,8 @@ import cors from 'cors';
 import connectDB from './config/db.js';
 
 import authRoutes from './routes/auth.js';
+import placeRoutes from './routes/place.js';
+import placeToVisitRoutes from './routes/placesToVisit.js';
 
 const app = express();
 
@@ -14,6 +16,8 @@ app.use(cors());
 connectDB();
 
 app.use('/api/auth', authRoutes);
+app.use('/api/places', placeRoutes);
+app.use('/api/placesToVisit', placeToVisitRoutes);
 
 const PORT= process.env.PORT || 5000;
 
