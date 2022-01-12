@@ -13,7 +13,17 @@ const PlaceVisitedSchema = new Schema({
     },
     images:{
         type:String
-    }
+    },
+    note:{
+        type:String
+    },
+    review: {  
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'review'
+    },
+    rating:{
+        type: Double,
+    },
 });
 
 module.exports = Item = mongoose.model('placeVisitedSchema', PlaceVisitedSchema);
