@@ -45,6 +45,7 @@ function Map() {
           if (!features.length) {
             return;
           }
+          console.log(features);
           const feature = features[0];
 
           const popup = new mapboxgl.Popup({ offset: [0, -15] })

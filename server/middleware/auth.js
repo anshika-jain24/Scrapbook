@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import User from '../models/User';
+import User from '../models/User.js';
 
 function auth(req, res, next) {
     let token;
@@ -31,4 +31,4 @@ function auth(req, res, next) {
     }
   }
 
-export default {auth};
+export default auth;

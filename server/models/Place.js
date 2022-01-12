@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
@@ -24,7 +24,8 @@ const PlaceSchema = new Schema({
         required: true
     },
     rating:{
-        type: Double,
+        type: Number,
+        default: 0
     },
     reviews: {  
         type: [mongoose.Schema.Types.ObjectId],
@@ -32,4 +33,6 @@ const PlaceSchema = new Schema({
     }
 });
 
-module.exports = Item = mongoose.model('place', PlaceSchema);
+const Item = mongoose.model('place', PlaceSchema);
+
+export default Item;
