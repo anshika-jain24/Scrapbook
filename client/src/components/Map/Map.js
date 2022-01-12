@@ -3,10 +3,10 @@ import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import './Map.css';
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiYW5zaGlrYWphaW4yNCIsImEiOiJja3kwMTgwdDgzYWQwMnBwNGljMTFsY2V0In0.CPC6J0E9RW2NfvJHbHZ7Eg';
+mapboxgl.accessToken = 'pk.eyJ1Ijoic2Fpa2VzaGFyaSIsImEiOiJja2swdDYyanYwM3IwMm5xZjZlYm1kZmlsIn0.1ha1QjW98gYknER_3JqN6w';
 
 const geocoder = new MapboxGeocoder({
-    accessToken: 'pk.eyJ1IjoiYW5zaGlrYWphaW4yNCIsImEiOiJja3kwMTgwdDgzYWQwMnBwNGljMTFsY2V0In0.CPC6J0E9RW2NfvJHbHZ7Eg',
+    accessToken: 'pk.eyJ1Ijoic2Fpa2VzaGFyaSIsImEiOiJja2swdDYyanYwM3IwMm5xZjZlYm1kZmlsIn0.1ha1QjW98gYknER_3JqN6w',
     mapboxgl: mapboxgl
 });
 
@@ -20,7 +20,7 @@ function Map() {
     useEffect(() => {
         const map = new mapboxgl.Map({
           container: mapContainerRef.current,
-          style: 'mapbox://styles/mapbox/streets-v11',
+          style: 'mapbox://styles/saikeshari/ckybb89qj83al14nudw2g0aby',
           center: [lng, lat],
           zoom: zoom
         });
