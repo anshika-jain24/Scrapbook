@@ -39,17 +39,18 @@ function Map() {
         map.on('click', (event) => {
           // If the user clicked on one of your markers, get its information.
           const features = map.queryRenderedFeatures(event.point, {
-            layers: ['ToVisit'] // replace with your layer name
+            layers: ['tovisit'] // replace with your layer name
           });
           if (!features.length) {
             return;
           }
+          console.log(features);
           const feature = features[0];
 
           const popup = new mapboxgl.Popup({ offset: [0, -15] })
           .setLngLat(feature.geometry.coordinates)
           .setHTML(
-            `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
+            `<h3>${feature.properties.place_name}</h3>`
           )
           .addTo(map);
         
