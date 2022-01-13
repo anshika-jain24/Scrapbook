@@ -11,3 +11,6 @@ API.interceptors.request.use( (req) => {
 
 export const signIn = (email, password) => API.post('/api/auth/login', {email, password});
 export const signUp = (email, password, name) => API.post('/api/auth/signup', {email,password,name});
+export const fetchPlaces = () => API.get('/api/places');
+export const fetchPlacesToVisit = () => API.get('/api/placesToVisit');
+export const createPlacesToVisit = (place) => API.post('/api/placesToVisit', {place});

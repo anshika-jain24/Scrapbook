@@ -33,13 +33,13 @@ function App() {
 }
 
 function PrivateOutlet1() {
-  const creds = JSON.parse(localStorage.getItem('profile'));
+  const creds = localStorage.getItem('profile');
 
   return creds ? <Outlet /> : <Navigate to="/home" />;
 }
 
 function PrivateOutlet2() {
-  const creds = JSON.parse(localStorage.getItem('profile'));
+  const creds = localStorage.getItem('profile');
 
   return !creds ? <Outlet /> : <Navigate to="/dashboard" />;
 }
