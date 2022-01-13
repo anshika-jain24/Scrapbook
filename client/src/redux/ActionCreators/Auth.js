@@ -9,7 +9,7 @@ export const signIn = (email, password, navigate) => (dispatch) => {
           //   console.log(response.status);
           if (response.status === 200) {
             //   console.log("inn");
-            localStorage.setItem("profile", JSON.stringify(response.data.token));
+            localStorage.setItem("profile", response.data.token);
   
             dispatch(ChangeLoadingStatus(false));
             dispatch({type: "LOGIN" , payload : response.data});
@@ -36,7 +36,7 @@ export const signIn = (email, password, navigate) => (dispatch) => {
           //   console.log(response.status);
           if (response.status === 200) {
             //   console.log("inn");
-            localStorage.setItem("profile", JSON.stringify(response.data.token));
+            localStorage.setItem("profile", response.data.token);
   
             dispatch(ChangeLoadingStatus(false));
             dispatch({type: "LOGIN" , payload : response.data});
