@@ -18,7 +18,7 @@ const UserSchema = new Schema({
     },
     placesToVisit: {  
         type: [mongoose.Schema.Types.ObjectId],
-        ref: 'placetoVisit'
+        ref: 'place'
     },
     placesVisited:{
         type: [mongoose.Schema.Types.ObjectId],
