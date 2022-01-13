@@ -9,9 +9,9 @@ function auth(req, res, next) {
       req.headers.authorization.startsWith("Bearer ")
     ) {
       token = req.headers.authorization.split(" ")[1];
-      console.log(token);
+      // console.log(token);
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      console.log(decoded);
+      // console.log(decoded);
       User.findById(decoded.id)
         .then((user) => {
           if (!user) {
@@ -21,7 +21,7 @@ function auth(req, res, next) {
           next();
         })
         .catch((error) => {
-          console.error(error);
+          // console.error(error);
           next(new Error("Not authorized, token failed"))
         });
     }
