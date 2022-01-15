@@ -53,6 +53,12 @@ export const signUp = (email, password, name) => (dispatch) => {
   }, 2000);
 };
 
+export const LogOut = (navigate) => (dispatch) => {
+  dispatch({ type: 'LOGOUT'});
+  navigate("/signin");
+
+}
+
 export const ChangeLoadingStatus = (dat) => ({
   type: "CHANGE_LOADING_STATUS",
   payload: dat,

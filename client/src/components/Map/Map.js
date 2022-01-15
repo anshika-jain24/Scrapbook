@@ -4,7 +4,11 @@ import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "./Map.css";
 import { Button, CircularProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { getPlacesToVisit } from "../../redux/ActionCreators/PlacesToVisit";
+import {
+  getPlacesToVisit,
+  addPlacesToVisit,
+  removePlaceToVisit
+} from "../../redux/ActionCreators/PlacesToVisit";
 
 mapboxgl.accessToken =
   "pk.eyJ1Ijoic2Fpa2VzaGFyaSIsImEiOiJja2swdDYyanYwM3IwMm5xZjZlYm1kZmlsIn0.1ha1QjW98gYknER_3JqN6w";
@@ -29,9 +33,9 @@ function Map() {
   const placesToVisit = useSelector((state) => state.placesToVisit);
 
   const [placesToVisitData, setPlacesToVisitData] = useState([]);
-  console.log(placesToVisit);
+  // console.log(placesToVisit);
 
-  console.log(placesToVisitData);
+  // console.log(placesToVisitData);
 
   const [mapLoaded, setMapLoaded] = useState(false);
 
@@ -45,12 +49,13 @@ function Map() {
             type: "Feature",
             geometry: obj.location,
             properties: { name: obj.name },
+            id: obj._id
           };
         })
       );
     }
 
-    if (placesToVisit.placesToVisitData.length > 0) {
+    if (placesToVisit.isLoaded) {
       console.log(placesToVisit.placesToVisitData);
 
       makeGeoJsonData();
@@ -60,7 +65,7 @@ function Map() {
   }, [placesToVisit, dispatch]);
 
   useEffect(() => {
-    if (placesToVisitData.length > 0) {
+    if (placesToVisit.isLoaded) {
       const map = new mapboxgl.Map({
         container: mapContainerRef.current,
         style: "mapbox://styles/mapbox/streets-v11",
@@ -95,20 +100,20 @@ function Map() {
         const el = document.createElement("div");
         el.className = "marker";
 
-        console.log(feature.properties.name);
+        console.log(feature);
 
         const name = feature.properties.name;
         const innerHtmlContent = `<div style="font-size: large;color : black;">
                           <h4 class="h4Class">${name} </h4> </div>`;
 
         const divElement = document.createElement("div");
-        const assignBtn = document.createElement("div");
-        assignBtn.innerHTML = `<button class="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root  css-sghohy-MuiButtonBase-root-MuiButton-root" >Remove from To Visit</button>`;
+        const removeToVisit = document.createElement("div");
+        removeToVisit.innerHTML = `<button class="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root  css-sghohy-MuiButtonBase-root-MuiButton-root" >Remove from To Visit</button>`;
         divElement.innerHTML = innerHtmlContent;
-        divElement.appendChild(assignBtn);
+        divElement.appendChild(removeToVisit);
         // btn.className = 'btn';
-        assignBtn.addEventListener("click", (e) => {
-          console.log("Button clicked" + name);
+        removeToVisit.addEventListener("click", (e) => {
+          dispatch(removePlaceToVisit(feature.id));
         });
 
         const popup = new mapboxgl.Popup({ offset: [0, -15] })
@@ -135,6 +140,8 @@ function Map() {
       });
       geocoder.on("result", (e) => {
         console.log(e.result);
+
+        const res = e.result;
         const popups = document.getElementsByClassName("mapboxgl-popup");
 
         if (popups.length) {
@@ -146,15 +153,17 @@ function Map() {
                           <h4 class="h4Class">${name} </h4> </div>`;
 
         const divElement = document.createElement("div");
-        const assignBtn = document.createElement("div");
-        assignBtn.innerHTML = `<button class="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root  css-sghohy-MuiButtonBase-root-MuiButton-root" >Add To Visit</button>`;
+        const addToVisitbtn = document.createElement("div");
+        addToVisitbtn.innerHTML = `<button class="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root  css-sghohy-MuiButtonBase-root-MuiButton-root" >Add To Visit</button>`;
         divElement.innerHTML = innerHtmlContent;
-        divElement.appendChild(assignBtn);
+        divElement.appendChild(addToVisitbtn);
         // btn.className = 'btn';
-        assignBtn.addEventListener("click", (e) => {
-          console.log("Button clicked" + name);
+        addToVisitbtn.addEventListener("click", (e) => {
+          // console.log(res);
+          const obj = { name: res.place_name, location: res.geometry };
+          // console.log(obj);
+          dispatch(addPlacesToVisit(obj));
         });
-
         const popup = new mapboxgl.Popup({ offset: [0, -15] })
           .setLngLat(e.result.geometry.coordinates)
           .setDOMContent(divElement)
