@@ -6,6 +6,7 @@ import AuthReducer from "./reducers/Auth";
 import LoadingReducer from "./reducers/Loading";
 import PlaceReducer from "./reducers/Places";
 import PlaceToVisitReducer from "./reducers/PlacesToVisit";
+import PlaceVisitedReducer from "./reducers/PlacesVisited";
 import thunk from "redux-thunk";
 
 const composeEnhancers = composeWithDevTools({
@@ -19,6 +20,7 @@ export const ConfigureStore = () => {
       loading: LoadingReducer,
       places: PlaceReducer,
       placesToVisit: PlaceToVisitReducer,
+      placesVisited: PlaceVisitedReducer,
     }), // reducer
     // applyMiddleware(thunk)
     composeEnhancers(applyMiddleware(thunk))

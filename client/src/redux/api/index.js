@@ -17,4 +17,9 @@ export const fetchPlaces = () => API.get("/api/places");
 export const fetchPlacesToVisit = () => API.get("/api/placesToVisit");
 export const createPlacesToVisit = (place) =>
   API.post("/api/placesToVisit", { place });
-export const deletePlaceToVisit = (placeID) => API.patch("/api/placesToVisit", {placeID});
+export const deletePlaceToVisit = (placeID) =>
+  API.patch("/api/placesToVisit", { placeID });
+
+export const fetchPlacesVisited = () => API.get("/api/placesVisited");
+export const createPlacesVisited = (place) =>
+  API.post("/api/placesVisited", { place });

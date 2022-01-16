@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
@@ -13,22 +13,22 @@ const PlaceVisitedSchema = new Schema({
   },
   images: {
     type: String,
+    default: "",
   },
-  note: {
+  personal_note: {
     type: String,
+    default: "",
   },
   review: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "review",
+    default: null,
   },
   rating: {
     type: Number,
   },
 });
 
-const Item = mongoose.model(
-  "placeVisited",
-  PlaceVisitedSchema
-);
+const Item = mongoose.model("placeVisited", PlaceVisitedSchema);
 
 export default Item;
