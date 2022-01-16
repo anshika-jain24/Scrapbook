@@ -1,6 +1,8 @@
 import React from "react";
 import "./homepage.css";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
+import { Link } from 'react-router-dom';
+
 
 function Homepage() {
   return (
@@ -21,6 +23,8 @@ function Homepage() {
           <Typography className="bannerSubText">
             Narrate your Own Tale
           </Typography>
+          
+          <Button className="signInButton" component={Link} to="/signin" variant="contained" color="primary">SIGN IN</Button>
         </Box>
       </Box>
       <Box

@@ -13,10 +13,10 @@ export const getToVisit = async (req, res) => {
 };
 
 export const addToVisit = async (req, res) => {
-  const place = req.body;
-
+  const { place } = req.body;
+  console.log(place);
   const foundPlaces = await Place.find({
-    "location.coordinates": req.body.location.coordinates,
+    "location.coordinates": place.location.coordinates,
   });
 
   // console.log(foundPlace);
@@ -71,4 +71,25 @@ export const addToVisit = async (req, res) => {
       res.status(409).json({ message: error.message });
     }
   }
+};
+
+export const removeToVisit = async (req, res) => {
+  const { placeID }  = req.body;
+
+  console.log(req.body);
+
+  const user = await User.findOneAndUpdate(
+    {_id : req.user._id},
+    {
+        $pull : {placesToVisit: placeID}
+    }
+  )
+
+  const userUpdated = await User.findOne({ _id: req.user._id }).populate({
+    path: "placesToVisit",
+    model: Place,
+  });
+
+  res.status(200).json(userUpdated.placesToVisit);
+
 };

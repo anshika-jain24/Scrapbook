@@ -31,3 +31,8 @@
   font-family: "Moon Dance", cursive !important;
   font-size: 3rem !important;
 }
+
+.signInButton {
+  text-align: center;
+  position: relative;
+}

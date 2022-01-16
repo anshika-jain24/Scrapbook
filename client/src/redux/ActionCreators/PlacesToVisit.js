@@ -25,6 +25,18 @@ export const addPlacesToVisit = (place) => async (dispatch) => {
   }
 };
 
+export const removePlaceToVisit = (placeId) => async(dispatch) => {
+  try {
+    dispatch(ChangeLoadingStatus(true));
+    const { data } = await api.deletePlaceToVisit(placeId);
+    dispatch({ type: "GET_PLACES_TOVISIT", payload: data });
+    dispatch(ChangeLoadingStatus(false));
+  } catch (error) {
+    console.log(error);
+    dispatch(ChangeLoadingStatus(false));
+  }
+}
+
 export const ChangeLoadingStatus = (dat) => ({
   type: "CHANGE_LOADING_STATUS",
   payload: dat,

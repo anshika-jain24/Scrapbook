@@ -11,11 +11,17 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import { LogOut } from "../redux/ActionCreators/Auth";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const pages = [];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Dashboard", "Logout"];
 
 const ResponsiveAppBar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -28,6 +34,11 @@ const ResponsiveAppBar = () => {
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+  };
+
+  const handleLogOut = () => {
+    setAnchorElNav(null);
+    dispatch(LogOut(navigate));
   };
 
   const handleCloseUserMenu = () => {
@@ -125,11 +136,19 @@ const ResponsiveAppBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem key="dashboard" onClick={handleCloseNavMenu}>
+                <Typography
+                  textAlign="center"
+                  component={Link}
+                  to="/dashboard"
+                  style={{ textDecoration: "none" }}
+                >
+                  Dashboard
+                </Typography>
+              </MenuItem>
+              <MenuItem key="logout" onClick={handleLogOut}>
+                <Typography textAlign="center">Logout</Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
