@@ -8,7 +8,6 @@ function Dashboard() {
     <>
       <ButtonAppBar />
       <Map />
-      <Button variant="contained">Hello</Button>
     </>
   );
 }

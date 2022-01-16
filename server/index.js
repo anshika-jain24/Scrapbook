@@ -6,6 +6,7 @@ import connectDB from "./config/db.js";
 import authRoutes from "./routes/auth.js";
 import placeRoutes from "./routes/place.js";
 import placeToVisitRoutes from "./routes/placesToVisit.js";
+import placesVisitedRoutes from "./routes/placesVisited.js";
 
 const app = express();
 
@@ -18,6 +19,7 @@ connectDB();
 app.use("/api/auth", authRoutes);
 app.use("/api/places", placeRoutes);
 app.use("/api/placesToVisit", placeToVisitRoutes);
+app.use("/api/placesVisited", placesVisitedRoutes);
 
 const PORT = process.env.PORT || 5000;
 
