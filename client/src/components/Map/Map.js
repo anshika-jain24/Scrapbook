@@ -156,6 +156,26 @@ function Map() {
         });
       });
 
+      const layers = ["TO VISIT", "VISITED"];
+      const colors = ["#4264fb", "#f84d4d"];
+
+      const legend = document.getElementById("legend");
+
+      layers.forEach((layer, i) => {
+        console.log(i);
+        const color = colors[i];
+        const item = document.createElement("div");
+        const key = document.createElement("span");
+        key.className = "legend-key";
+        key.style.backgroundColor = color;
+
+        const value = document.createElement("span");
+        value.innerHTML = `${layer}`;
+        item.appendChild(key);
+        item.appendChild(value);
+        legend.appendChild(item);
+      });
+
       for (const feature of geojsonPlacesToVisit.features) {
         // create a HTML element for each feature
         const el = document.createElement("div");
@@ -270,7 +290,7 @@ function Map() {
         addVisitedbtn.addEventListener("click", (e) => {
           // console.log(res);
           const obj = { name: res.place_name, location: res.geometry };
-          console.log("Clicked to add to visietd");
+          console.log("Clicked to add to visited");
           // dispatch(addPlacesToVisit(obj));
         });
 
@@ -298,6 +318,7 @@ function Map() {
         <></>
       )}
       <div ref={mapContainerRef} className="map-container" />
+      <div class="map-overlay" id="legend"></div>
     </>
     // <div ref={mapContainerRef} className="map-container" />
   );
