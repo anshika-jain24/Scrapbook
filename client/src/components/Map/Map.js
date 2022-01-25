@@ -4,6 +4,7 @@ import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "./Map.css";
 import { Button, CircularProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   getPlacesToVisit,
   addPlacesToVisit,
@@ -27,6 +28,7 @@ function Map() {
   const [lat, setLat] = useState(42.35);
   const [zoom, setZoom] = useState(1.2);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getPlacesToVisit());
@@ -290,7 +292,7 @@ function Map() {
         addVisitedbtn.addEventListener("click", (e) => {
           // console.log(res);
           const obj = { name: res.place_name, location: res.geometry };
-          console.log("Clicked to add to visited");
+          navigate("/add", {state: obj});
           // dispatch(addPlacesToVisit(obj));
         });
 

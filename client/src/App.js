@@ -13,6 +13,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import LinearProgress from "@mui/material/LinearProgress";
 import { useSelector } from "react-redux";
 import UploadImageToS3WithReactS3 from "./pages/UploadImageToS3WithReactS3 ";
+import Form from "./components/Form/Form";
 
 function App() {
   const loadingStatus = useSelector((state) => state.loading.isLoading);
@@ -25,6 +26,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/upload" element={<UploadImageToS3WithReactS3/>} />
             <Route path="/" element={<Navigate to="/dashboard" />} />
+            <Route path="/add" element={<Form />} />
           </Route>
           <Route path="/" element={<PrivateOutlet2 />}>
             <Route path="/home" element={<Homepage />} />

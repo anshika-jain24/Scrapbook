@@ -2,29 +2,40 @@ import React, {useState, useEffect} from 'react';
 import { TextField, Button, Typography, Paper} from '@mui/material';
 import useStyles from './styles';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { useLocation } from 'react-router-dom';
+import { addPlacesVisited } from '../../redux/ActionCreators/PlacesVisited';
 
 //GET CURRENTID OF THE POST
 
 function Form() {
-    // const [postData, setPostData] = useState({
-    //     title: '',
-    //     message: '',
-    //     tags: '',
-    //     selectedFile:''
-    // });
+    const [placeData, setPlaceData] = useState({
+        personal_note: '',
+        review: '',
+        rating: -1
+    });
     // const post = useSelector(state => currentId ? state.posts.find( (p) => p._id === currentId) : null)
     const classes=useStyles();
     const dispatch = useDispatch();
+    const location = useLocation();
 
 
     // useEffect(() => {
     //     if(post) setPostData(post);
     // }, [post])
 
+    // console.log(location.state);
+
     const handleSubmit =(e) => {
         e.preventDefault();
-
+        const obj = {
+            place : location.state,
+            personal_note : placeData.personal_note,
+            review : placeData.review,
+            rating : placeData.rating
+        }
+        console.log(obj.place.location);
+        // dispatch(addPlacesVisited(obj));
+        clear();
         // if(currentId){
         //     dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
         //     clear();
@@ -39,45 +50,51 @@ function Form() {
 
     const clear = () => {
         // setCurrentId(null);
-        // setPostData({
-        //     title: '',
-        //     message: '',
-        //     tags: '',
-        //     selectedFile:''
-        // });
+        setPlaceData({
+            personal_note: '',
+            review: '',
+            rating: -1
+        });
     }
 
     return (
         <Paper className={classes.paper}>
+            <Typography variant="h4">{location.state.name}</Typography>
             <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
                 <Typography variant="h6">Creating a Memory</Typography>
                 <TextField 
-                name="title" 
-                variant="outlined" 
-                label="Title" 
-                fullWidth
-                // value={postData.title}
-                // onChange={}
-                />
-                <TextField 
-                name="message" 
+                name="personal_note" 
                 variant="outlined" 
                 label="Message" 
                 fullWidth
-                // value={postData.message}
-                // onChange={}
+                multiline
+                rows={4}
+                value={placeData.personal_note}
+                onChange={(e) => setPlaceData({ ...placeData, personal_note: e.target.value })}
                 />
                 <TextField 
-                name="tags" 
+                name="review" 
                 variant="outlined" 
-                label="Tags" 
+                label="Review" 
                 fullWidth
-                // value={postData.tags}
-                // onChange={}
+                multiline
+                rows={4}
+                value={placeData.review}
+                onChange={(e) => setPlaceData({ ...placeData, review: e.target.value })}
                 />
-                <div className="classes.fileInput">
+                <TextField
+                name="rating"
+                label="Rating"
+                type="number"
+                InputLabelProps={{
+                    shrink: true,
+                }}
+                value={placeData.rating}
+                onChange={(e) => setPlaceData({ ...placeData, rating: e.target.value })}
+                />
+                {/* <div className="classes.fileInput">
                    
-                </div>
+                </div> */}
                 <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
                 <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button>
             </form>

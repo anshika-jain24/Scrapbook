@@ -14,6 +14,7 @@ export const getPlacesVisited = () => async (dispatch) => {
 };
 
 export const addPlacesVisited = (place) => async (dispatch) => {
+  // console.log(place);
   try {
     dispatch(ChangeLoadingStatus(true));
     const { data } = await api.createPlacesVisited(place);
