@@ -4,6 +4,7 @@ import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "./Map.css";
 import { Button, CircularProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   getPlacesToVisit,
   addPlacesToVisit,
@@ -27,6 +28,7 @@ function Map() {
   const [lat, setLat] = useState(42.35);
   const [zoom, setZoom] = useState(1.2);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getPlacesToVisit());
@@ -156,6 +158,26 @@ function Map() {
         });
       });
 
+      const layers = ["TO VISIT", "VISITED"];
+      const colors = ["#4264fb", "#f84d4d"];
+
+      const legend = document.getElementById("legend");
+
+      layers.forEach((layer, i) => {
+        console.log(i);
+        const color = colors[i];
+        const item = document.createElement("div");
+        const key = document.createElement("span");
+        key.className = "legend-key";
+        key.style.backgroundColor = color;
+
+        const value = document.createElement("span");
+        value.innerHTML = `${layer}`;
+        item.appendChild(key);
+        item.appendChild(value);
+        legend.appendChild(item);
+      });
+
       for (const feature of geojsonPlacesToVisit.features) {
         // create a HTML element for each feature
         const el = document.createElement("div");
@@ -270,7 +292,7 @@ function Map() {
         addVisitedbtn.addEventListener("click", (e) => {
           // console.log(res);
           const obj = { name: res.place_name, location: res.geometry };
-          console.log("Clicked to add to visietd");
+          navigate("/add", {state: obj});
           // dispatch(addPlacesToVisit(obj));
         });
 
@@ -298,6 +320,7 @@ function Map() {
         <></>
       )}
       <div ref={mapContainerRef} className="map-container" />
+      <div class="map-overlay" id="legend"></div>
     </>
     // <div ref={mapContainerRef} className="map-container" />
   );

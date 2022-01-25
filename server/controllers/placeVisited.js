@@ -27,7 +27,7 @@ export const getVisited = async (req, res) => {
 export const addVisited = async (req, res) => {
   const place = req.body;
 
-  console.log(place);
+  console.log(place.place.location);
 
   const foundPlaces = await Place.find({
     "location.coordinates": place.place.location.coordinates,
