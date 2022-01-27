@@ -25,8 +25,8 @@ function App() {
           <Route path="/" element={<PrivateOutlet1 />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/upload" element={<UploadImageToS3WithReactS3/>} />
-            <Route path="/" element={<Navigate to="/dashboard" />} />
             <Route path="/add" element={<Form />} />
+            <Route path="/" element={<Navigate to="/dashboard" />} />
           </Route>
           <Route path="/" element={<PrivateOutlet2 />}>
             <Route path="/home" element={<Homepage />} />

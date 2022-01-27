@@ -9,6 +9,12 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
+const config = {
+  headers: {
+    "content-type": "multipart/form-data",
+  },
+};
+
 export const signIn = (email, password) =>
   API.post("/api/auth/login", { email, password });
 export const signUp = (email, password, name) =>
@@ -22,4 +28,6 @@ export const deletePlaceToVisit = (placeID) =>
 
 export const fetchPlacesVisited = () => API.get("/api/placesVisited");
 export const createPlacesVisited = (place) =>
-  API.post("/api/placesVisited", { place });
+  API.post("/api/placesVisited", place, config);
+
+export const uploadFile = (obj) => API.post("/api/upload", obj, config);

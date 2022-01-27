@@ -16,8 +16,7 @@ const PlaceVisitedSchema = new Schema({
     default: "",
   },
   personal_note: {
-    type: String,
-    default: "",
+    type: [String]
   },
   review: {
     type: mongoose.Schema.Types.ObjectId,

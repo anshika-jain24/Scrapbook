@@ -1,6 +1,7 @@
 import React , {useState} from 'react';
-import { uploadFile } from 'react-s3';
-
+// import { uploadFile } from 'react-s3';
+import {uploadFile} from '../redux/ActionCreators/PlacesVisited.js';
+import { useDispatch, useSelector } from "react-redux";
 
 const S3_BUCKET ='scrapbook';
 const REGION ='us-east-1';
@@ -16,6 +17,8 @@ const config = {
 
 const UploadImageToS3WithReactS3 = () => {
 
+    const dispatch = useDispatch();
+
     const [selectedFile, setSelectedFile] = useState(null);
 
     const handleFileInput = (e) => {
@@ -23,9 +26,17 @@ const UploadImageToS3WithReactS3 = () => {
     }
 
     const handleUpload = async (file) => {
-        uploadFile(file, config)
-            .then(data => console.log(data))
-            .catch(err => console.error(err))
+
+        const obj = new FormData();
+        obj.append("image", selectedFile);
+        obj.append("data1", "sample");
+
+        dispatch(uploadFile(obj));
+
+
+        // uploadFile(file, config)
+        //     .then(data => console.log(data))
+        //     .catch(err => console.error(err))
     }
 
     return <div>
