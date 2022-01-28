@@ -65,9 +65,9 @@ function Form() {
     }
 
 
-    console.log(...temp1);
+    // console.log(...temp1);
 
-    console.log(temp1.get('image_files'))
+    // console.log(temp1.get('image_files'))
 
     // console.log(temp1);
     // const obj = {

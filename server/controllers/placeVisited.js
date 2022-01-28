@@ -23,10 +23,10 @@ const uploadImageFile = multer({
     acl: "public-read",
     contentType: multerS3.AUTO_CONTENT_TYPE,
     key: function (req, file, cb) {
-      cb(null,file.originalname.replace(/\s+/g, ""));
+      cb(null, file.originalname.replace(/\s+/g, ""));
     },
   }),
-  limits: { fileSize: 2000000 }, // In bytes: 2000000 bytes = 2 MB
+  limits: { fileSize: 200000000 }, // In bytes: 2000000 bytes = 2 MB
 });
 
 export const getVisited = async (req, res) => {
@@ -51,8 +51,6 @@ export const getVisited = async (req, res) => {
 };
 
 export const addVisited = async (req, res, next) => {
-
-
   // const uploadPP = uploadImageFile.array("image_files");
   // uploadPP(req, res, async (error) => {
   //   if (error instanceof multer.MulterError) {
@@ -77,16 +75,22 @@ export const addVisited = async (req, res, next) => {
   //   }
   // });
 
+  // const temp = upload.any();
+  // temp(req, res, async (error) => {
+  //   // console.log(req.files);
 
-  const temp = upload.any();
-  temp(req, res, async (error) => {
-    // console.log(req.files);
+  //   // console.log(obj);
+  // });
 
-    var fileNames = req.files.map(obj => {
+  // console.log(req.file);
+
+  const temp1 = uploadImageFile.array("image_files", 5);
+  temp1(req, res, async (error) => {
+    var fileNames = req.files.map((obj) => {
       console.log("objjjj");
       console.log(obj);
       return obj.originalname.replace(/\s+/g, "");
-    })
+    });
 
     console.log(fileNames);
     const obj = JSON.parse(JSON.stringify(req.body));
@@ -148,13 +152,14 @@ export const addVisited = async (req, res, next) => {
               place: foundPlace._id,
               review: savedReview._id,
               personal_note: place.personal_note || "",
-              rating: place.rating || -1
+              rating: place.rating || -1,
+              images: fileNames,
             });
 
-            if(fileNames.length>0)
-            {
-              newPlaceVisited = {...newPlaceVisited, images:fileNames}
-            }
+            // if(fileNames.length>0)
+            // {
+            //   newPlaceVisited = {...newPlaceVisited, images:fileNames}
+            // }
 
             const savedPlaceVisited = await newPlaceVisited.save();
 
@@ -173,13 +178,14 @@ export const addVisited = async (req, res, next) => {
               owner: req.user._id,
               place: foundPlace._id,
               personal_note: place.personal_note || "",
-              rating: place.rating || -1
+              rating: place.rating || -1,
+              images: fileNames,
             });
 
-            if(fileNames.length>0)
-            {
-              newPlaceVisited = {...newPlaceVisited, images:fileNames}
-            }
+            // if(fileNames.length>0)
+            // {
+            //   newPlaceVisited = {...newPlaceVisited, images:fileNames}
+            // }
 
             const savedPlaceVisited = await newPlaceVisited.save();
 
@@ -221,13 +227,14 @@ export const addVisited = async (req, res, next) => {
               place: a._id,
               review: savedReview._id,
               personal_note: place.personal_note || "",
-              rating: place.rating || -1
+              rating: place.rating || -1,
+              images: fileNames,
             });
 
-            if(fileNames.length>0)
-            {
-              newPlaceVisited = {...newPlaceVisited, images:fileNames}
-            }
+            // if(fileNames.length>0)
+            // {
+            //   newPlaceVisited = {...newPlaceVisited, images:fileNames}
+            // }
 
             const savedPlaceVisited = await newPlaceVisited.save();
 
@@ -246,13 +253,14 @@ export const addVisited = async (req, res, next) => {
               owner: req.user._id,
               place: a._id,
               personal_note: place.personal_note || "",
-              rating: place.rating || -1
+              rating: place.rating || -1,
+              images: fileNames,
             });
 
-            if(fileNames.length>0)
-            {
-              newPlaceVisited = {...newPlaceVisited, images:fileNames}
-            }
+            // if(fileNames.length>0)
+            // {
+            //   newPlaceVisited = {...newPlaceVisited, images:fileNames}
+            // }
 
             const savedPlaceVisited = await newPlaceVisited.save();
 
@@ -270,28 +278,20 @@ export const addVisited = async (req, res, next) => {
         res.status(409).json({ message: error.message });
       }
     }
-
-    // console.log(obj);
+    if (error instanceof multer.MulterError) {
+      res.status(500);
+      next(new Error(error.message));
+    } else if (error) {
+      res.status(500);
+      next(new Error(error.message));
+    } else {
+      if (req.files) {
+        console.log("Done");
+      } else {
+        res.status(403);
+        next(new Error("Select a file"));
+      }
+    }
+    // console.log(req.file);
   });
-
-  // console.log(req.file);
-
-  // const temp = uploadfile.single("images_files");
-  // temp(req, res, async (error) => {
-  //   // if (error instanceof multer.MulterError) {
-  //   //   res.status(500);
-  //   //   next(new Error(error.message));
-  //   // } else if (error) {
-  //   //   res.status(500);
-  //   //   next(new Error(error.message));
-  //   // } else {
-  //   //   if (req.file) {
-  //   //     console.log(req.file.key);
-  //   //   } else {
-  //   //     res.status(403);
-  //   //     next(new Error("Select a file"));
-  //   //   }
-  //   // }
-  //   console.log(req.file);
-  // });
 };

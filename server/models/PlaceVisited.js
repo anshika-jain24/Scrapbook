@@ -12,11 +12,11 @@ const PlaceVisitedSchema = new Schema({
     ref: "place",
   },
   images: {
-    type: String,
+    type: [String],
     default: "",
   },
   personal_note: {
-    type: [String]
+    type: String
   },
   review: {
     type: mongoose.Schema.Types.ObjectId,
