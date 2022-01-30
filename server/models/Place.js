@@ -24,8 +24,8 @@ const PlaceSchema = new Schema({
     required: true,
   },
   rating: {
-    type: Number,
-    default: 0,
+    type: [Number],
+    default: [0.0,0.0],
   },
   reviews: {
     type: [mongoose.Schema.Types.ObjectId],

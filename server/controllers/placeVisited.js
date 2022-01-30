@@ -168,6 +168,18 @@ export const addVisited = async (req, res, next) => {
               { $push: { placesVisited: savedPlaceVisited._id } }
             );
 
+            if (place.rating != -1) {
+              const updatedPlace = await Place.findOneAndUpdate(
+                { _id: foundPlace._id },
+                {
+                  rating: [
+                    parseInt(Number(foundPlace.rating[0]) + Number(place.rating)),
+                    foundPlace.rating[1] + 1,
+                  ],
+                }
+              );
+            }
+
             res.status(200).json(savedPlaceVisited);
           } catch (error) {
             res.status(400).json({ message: error.message });
@@ -194,6 +206,18 @@ export const addVisited = async (req, res, next) => {
               { $push: { placesVisited: savedPlaceVisited._id } }
             );
 
+            if (place.rating != -1) {
+              const updatedPlace = await Place.findOneAndUpdate(
+                { _id: foundPlace._id },
+                {
+                  rating: [
+                    parseInt(Number(foundPlace.rating[0]) + Number(place.rating)),
+                    foundPlace.rating[1] + 1,
+                  ],
+                }
+              );
+            }
+
             res.status(200).json(savedPlaceVisited);
           } catch (error) {
             res.status(400).json({ message: error.message });
@@ -201,7 +225,9 @@ export const addVisited = async (req, res, next) => {
         }
       }
     } else {
-      const newPlace = new Place(place.place);
+      const obj1 = place.place;
+      const obj2 = {...obj1, "rating":[place.rating, 1]};
+      const newPlace = new Place(obj2);
 
       try {
         const a = await newPlace.save();
