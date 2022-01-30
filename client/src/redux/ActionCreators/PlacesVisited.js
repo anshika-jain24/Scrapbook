@@ -14,7 +14,7 @@ export const getPlacesVisited = () => async (dispatch) => {
 };
 
 export const addPlacesVisited = (place) => async (dispatch) => {
-  // console.log(place);
+  console.log(place);
   try {
     dispatch(ChangeLoadingStatus(true));
     const { data } = await api.createPlacesVisited(place);
@@ -25,6 +25,11 @@ export const addPlacesVisited = (place) => async (dispatch) => {
     dispatch(ChangeLoadingStatus(false));
   }
 };
+
+export const uploadFile = (obj) => async(dispatch) => {
+  const data = await api.uploadFile(obj);
+  console.log(data);
+}
 
 // export const removePlaceToVisit = (placeId) => async(dispatch) => {
 //   try {
