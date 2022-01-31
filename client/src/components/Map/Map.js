@@ -30,13 +30,7 @@ function Map() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    dispatch(getPlacesToVisit());
-  }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(getPlacesVisited());
-  }, [dispatch]);
 
   const placesToVisit = useSelector((state) => state.placesToVisit);
   const placesVisited = useSelector((state) => state.placesVisited);
@@ -158,25 +152,25 @@ function Map() {
         });
       });
 
-      const layers = ["TO VISIT", "VISITED"];
-      const colors = ["#4264fb", "#f84d4d"];
+      // const layers = ["TO VISIT", "VISITED"];
+      // const colors = ["#4264fb", "#f84d4d"];
 
-      const legend = document.getElementById("legend");
+      // const legend = document.getElementById("legend");
 
-      layers.forEach((layer, i) => {
-        console.log(i);
-        const color = colors[i];
-        const item = document.createElement("div");
-        const key = document.createElement("span");
-        key.className = "legend-key";
-        key.style.backgroundColor = color;
+      // layers.forEach((layer, i) => {
+      //   console.log(i);
+      //   const color = colors[i];
+      //   const item = document.createElement("div");
+      //   const key = document.createElement("span");
+      //   key.className = "legend-key";
+      //   key.style.backgroundColor = color;
 
-        const value = document.createElement("span");
-        value.innerHTML = `${layer}`;
-        item.appendChild(key);
-        item.appendChild(value);
-        legend.appendChild(item);
-      });
+      //   const value = document.createElement("span");
+      //   value.innerHTML = `${layer}`;
+      //   item.appendChild(key);
+      //   item.appendChild(value);
+      //   legend.appendChild(item);
+      // });
 
       for (const feature of geojsonPlacesToVisit.features) {
         // create a HTML element for each feature
@@ -320,7 +314,7 @@ function Map() {
         <></>
       )}
       <div ref={mapContainerRef} className="map-container" />
-      <div class="map-overlay" id="legend"></div>
+      {/* <div class="map-overlay" id="legend"></div> */}
     </>
     // <div ref={mapContainerRef} className="map-container" />
   );
