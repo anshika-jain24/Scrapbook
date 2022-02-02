@@ -1,19 +1,10 @@
 import React , {useState} from 'react';
 // import { uploadFile } from 'react-s3';
 import {uploadFile} from '../redux/ActionCreators/PlacesVisited.js';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 
-const S3_BUCKET ='scrapbook';
-const REGION ='us-east-1';
-const ACCESS_KEY ='AKIAXCCR7Y4DDVBUIBU6';
-const SECRET_ACCESS_KEY ='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';
 
-const config = {
-    bucketName: S3_BUCKET,
-    region: REGION,
-    accessKeyId: ACCESS_KEY,
-    secretAccessKey: SECRET_ACCESS_KEY,
-}
+
 
 const UploadImageToS3WithReactS3 = () => {
 

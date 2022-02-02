@@ -301,7 +301,7 @@ function Map() {
       // Clean up on unmount
       return () => map.remove();
     }
-  }, [placesToVisitData, placesVisitedData]);
+  }, [placesToVisitData, placesVisitedData, dispatch]);
 
   return (
     <>

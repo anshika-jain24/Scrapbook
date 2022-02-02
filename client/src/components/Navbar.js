@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const pages = [];
-const settings = ["Dashboard", "Logout"];
+
 
 const ResponsiveAppBar = () => {
   const dispatch = useDispatch();

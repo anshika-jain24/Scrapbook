@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ButtonAppBar from "../../components/Navbar";
 import Map from "../../components/Map/Map";
 import {
@@ -10,7 +10,7 @@ import {
   CardActions,
   CardContent,
 } from "@mui/material";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector} from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 import List from "../../components/List";
 

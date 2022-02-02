@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import {
   TextField,
   Button,
   Typography,
   Paper,
   Grid,
-  Item,
 } from "@mui/material";
 import useStyles from "./styles";
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useDispatch} from "react-redux";
+import { useLocation} from "react-router-dom";
 import { addPlacesVisited } from "../../redux/ActionCreators/PlacesVisited";
 
 //GET CURRENTID OF THE POST
@@ -24,6 +23,7 @@ function Form() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const location = useLocation();
+
 
   const [selectedFiles, setSelectedFiles] = useState(null);
 

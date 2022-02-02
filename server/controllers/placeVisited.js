@@ -6,7 +6,7 @@ import Review from "../models/Review.js";
 import multer from "multer";
 import aws from "aws-sdk";
 import multerS3 from "multer-s3";
-
+import mongoose from 'mongoose';
 const upload = multer();
 
 const s3 = new aws.S3({
@@ -320,4 +320,29 @@ export const addVisited = async (req, res, next) => {
     }
     // console.log(req.file);
   });
+};
+
+export const removeVisited = async (req, res) => {
+  const { placeID }  = req.body;
+  console.log(req.body);
+
+  if(!mongoose.Types.ObjectId.isValid(placeID)) return res.status(404) .send("No place with that id");
+
+  await PlaceVisited.findByIdAndRemove(placeID);
+
+
+  const user = await User.findOneAndUpdate(
+    {_id : req.user._id},
+    {
+        $pull : {placesVisited: placeID}
+    }
+  )
+
+  const userUpdated = await User.findOne({ _id: req.user._id }).populate({
+    path: "placesVisited",
+    model: Place,
+  });
+
+  res.status(200).json(userUpdated.placesVisited);
+
 };

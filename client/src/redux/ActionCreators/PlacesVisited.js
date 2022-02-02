@@ -20,6 +20,7 @@ export const addPlacesVisited = (place) => async (dispatch) => {
     const { data } = await api.createPlacesVisited(place);
     dispatch({ type: "ADD_PLACES_VISITED", payload: data });
     dispatch(ChangeLoadingStatus(false));
+    window.location.href="/dashboard";
   } catch (error) {
     console.log(error);
     dispatch(ChangeLoadingStatus(false));
@@ -31,17 +32,17 @@ export const uploadFile = (obj) => async(dispatch) => {
   console.log(data);
 }
 
-// export const removePlaceToVisit = (placeId) => async(dispatch) => {
-//   try {
-//     dispatch(ChangeLoadingStatus(true));
-//     const { data } = await api.deletePlaceToVisit(placeId);
-//     dispatch({ type: "GET_PLACES_TOVISIT", payload: data });
-//     dispatch(ChangeLoadingStatus(false));
-//   } catch (error) {
-//     console.log(error);
-//     dispatch(ChangeLoadingStatus(false));
-//   }
-// }
+export const removePlaceVisited = (placeId) => async(dispatch) => {
+  try {
+    dispatch(ChangeLoadingStatus(true));
+    const { data } = await api.deletePlacesVisited(placeId);
+    dispatch({ type: "GET_PLACES_VISITED", payload: data });
+    dispatch(ChangeLoadingStatus(false));
+  } catch (error) {
+    console.log(error);
+    dispatch(ChangeLoadingStatus(false));
+  }
+}
 
 export const ChangeLoadingStatus = (dat) => ({
   type: "CHANGE_LOADING_STATUS",

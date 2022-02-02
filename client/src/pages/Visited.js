@@ -11,7 +11,7 @@ import Container from '@mui/material/Container';
 import Navbar from '../components/Navbar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
 
 const theme = createTheme();
 
