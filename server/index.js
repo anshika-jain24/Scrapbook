@@ -18,8 +18,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 // app.use(upload.array());
 // app.use(express.static("public"));
-
 connectDB();
+
+app.get('/', (req, res) => {
+    res.send("Hello to Scrapbook API");
+});
+
+
 
 app.use("/api/auth", authRoutes);
 app.use("/api/places", placeRoutes);
