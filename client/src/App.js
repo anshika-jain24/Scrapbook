@@ -1,11 +1,11 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import {
   BrowserRouter,
   Routes,
   Route,
   Outlet,
   Navigate,
-  useParams
+  useParams,
 } from "react-router-dom";
 import SignIn from "./pages/Auth/SignIn";
 import SignUp from "./pages/Auth/SignUp";
@@ -15,43 +15,39 @@ import LinearProgress from "@mui/material/LinearProgress";
 import { useSelector, useDispatch } from "react-redux";
 import UploadImageToS3WithReactS3 from "./pages/UploadImageToS3WithReactS3 ";
 import Form from "./components/Form/Form";
-import {
-  getPlacesToVisit,
-  addPlacesToVisit,
-  removePlaceToVisit,
-} from "./redux/ActionCreators/PlacesToVisit";
+import { getPlacesToVisit } from "./redux/ActionCreators/PlacesToVisit";
 
 import { getPlacesVisited } from "./redux/ActionCreators/PlacesVisited";
 import Visited from "./pages/Visited";
 
 const PlaceRender = () => {
-  const placesVisited = useSelector((state) => state.placesVisited.placesVisitedData);
-  const {place} = useParams();
+  const placesVisited = useSelector(
+    (state) => state.placesVisited.placesVisitedData
+  );
+  const { place } = useParams();
 
-  const found = placesVisited.filter(item => item._id===place);
+  const found = placesVisited.filter((item) => item._id === place);
 
-  if(found.length === 0)
-  {
-    console.log('No such place');
-    return(<Dashboard />)
+  if (found.length === 0) {
+    console.log("No such place");
+    return <Dashboard />;
   }
 
-  return (
-    <Visited place={found[0]} />
-  )
-}
+  return <Visited place={found[0]} />;
+};
 
 function App() {
+  const creds = localStorage.getItem("profile");
   const loadingStatus = useSelector((state) => state.loading.isLoading);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getPlacesToVisit());
-  }, [dispatch]);
+    if (creds) {
+      dispatch(getPlacesToVisit());
+      dispatch(getPlacesVisited());
+    }
+  }, [creds, dispatch]);
 
-  useEffect(() => {
-    dispatch(getPlacesVisited());
-  }, [dispatch]);
 
   return (
     <>
@@ -60,7 +56,7 @@ function App() {
         <Routes>
           <Route path="/" element={<PrivateOutlet1 />}>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/upload" element={<UploadImageToS3WithReactS3/>} />
+            <Route path="/upload" element={<UploadImageToS3WithReactS3 />} />
             <Route path="/add" element={<Form />} />
             <Route path="/placesVisited/:place" element={<PlaceRender />} />
             <Route path="/" element={<Navigate to="/dashboard" />} />

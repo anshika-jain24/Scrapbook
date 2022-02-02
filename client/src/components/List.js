@@ -17,8 +17,9 @@ export default function InteractiveList() {
   const placesToVisit = useSelector((state) => state.placesToVisit);
 
   return (
-    <Box sx={{ flexGrow: 1, border: '0.5px dashed black', maxWidth: '50%', margin: 'auto', padding: '1rem'}}>
-      <Grid item xs={12} md={6} style={{margin: 'auto'}}>
+    <Box sx={{ flexGrow: 1, border: '0.5px dashed black', maxWidth: '70%', margin: 'auto', padding: '0.5rem', maxHeight: '30rem', overflow: 'auto'}}>
+      <Grid container>
+      <Grid item md={12} style={{margin: 'auto'}}>
         <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div" style={{textAlign: 'center'}}>
           Explore your Places to Visit
         </Typography>
@@ -49,6 +50,7 @@ export default function InteractiveList() {
             })}
           </List>
         </Demo>
+      </Grid>
       </Grid>
     </Box>
   );
