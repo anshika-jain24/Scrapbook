@@ -10,16 +10,16 @@ import mongoose from 'mongoose';
 const upload = multer();
 
 const s3 = new aws.S3({
-  secretAccessKey: "3akze+WJxJFQ/3kZ5c9gu2lcH+CQo5pBsBsMMt2T",
-  accessKeyId: "AKIAXCCR7Y4DDVBUIBU6",
-  region: "us-east-1",
+  secretAccessKey: process.env.SECRET_ACCESS_KEY,
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  region: process.env.REGION,
 });
 
 const uploadImageFile = multer({
   //   fileFilter: fileFilterPP,
   storage: multerS3({
     s3: s3,
-    bucket: "scrapbook",
+    bucket: process.env.AWS_BUCKET_NAME,
     acl: "public-read",
     contentType: multerS3.AUTO_CONTENT_TYPE,
     key: function (req, file, cb) {
